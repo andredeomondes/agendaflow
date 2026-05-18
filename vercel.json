@@ -1,0 +1,18 @@
+{
+  "installCommand": "npm install && npx prisma generate --schema=Backend/prisma/schema.prisma",
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 30
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/lembretes",
+      "schedule": "0 9 * * *"
+    }
+  ],
+  "rewrites": [
+    { "source": "/api/cron/lembretes", "destination": "/api/cron/lembretes" },
+    { "source": "/api/(.*)", "destination": "/api" }
+  ]
+}

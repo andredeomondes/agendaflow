@@ -1,0 +1,38 @@
+node_modules/
+.next/
+.vercel/
+
+# Environment variables
+.env
+.env.local
+Backend/.env
+
+# WhatsApp session (contains auth credentials)
+Backend/.whatsapp-session/
+
+# Claude AI session and memory files
+.claude/
+session-ses_*.md
+
+# Backup files
+*.bak
+
+# Planning/session documents (dev-only)
+PLAN_IA.md
+TASKS.md
+SPEC.md
+
+# Utility scripts (not part of app)
+migrate-phones.js
+email-exemplo.html
+Backend/update-phones.js
+Backend/error.txt
+Backend/output.txt
+
+# Test/debug files
+Backend/test/check-tokens.js
+Backend/test/test-comprehensive.js
+Backend/test/test-gcal.js
+Backend/test/test-ia.js
+playwright.config.js
+tests/

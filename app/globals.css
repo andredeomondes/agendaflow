@@ -1,0 +1,861 @@
+@import "tailwindcss";
+
+@theme {
+    --font-inter: 'Inter', sans-serif;
+    --color-rocket-purple: #8257e5;
+    --color-rocket-purple-light: #996dff;
+    --color-rocket-purple-dark: #633bbc;
+    --color-rocket-orange: #f48f56;
+    --color-rocket-green: #04d361;
+    --color-rocket-pink: #ff79c6;
+    --color-surface: rgba(255, 255, 255, 0.05);
+    --color-surface-hover: rgba(255, 255, 255, 0.08);
+    --color-border-glass: rgba(255, 255, 255, 0.08);
+    --color-border-glass-hover: rgba(255, 255, 255, 0.15);
+    --color-text-muted: #a0a0b8;
+    --color-bg-primary: #0a0a0f;
+    --color-text-primary: #e1e1e6;
+}
+
+body {
+    font-family: var(--font-inter);
+    margin: 0;
+    padding: 0;
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* ─── Glassmorphism Base ─── */
+.glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-hover:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glass-card-strong {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+}
+
+.glass-section {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.glass-section-strong {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+}
+
+.glass-input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.glass-input:focus {
+    border-color: #8257e5;
+    box-shadow: 0 0 0 1px rgba(130, 87, 229, 0.3);
+}
+
+/* ─── Gradients ─── */
+.gradient-hero {
+    background: radial-gradient(ellipse at 20% 50%, rgba(130, 87, 229, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(244, 143, 86, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(4, 211, 97, 0.05) 0%, transparent 40%);
+}
+
+.gradient-card {
+    background: linear-gradient(135deg, rgba(130, 87, 229, 0.08) 0%, rgba(4, 211, 97, 0.04) 100%);
+}
+
+.gradient-purple {
+    background: linear-gradient(135deg, #8257e5 0%, #996dff 100%);
+}
+
+.gradient-border {
+    position: relative;
+}
+
+.gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(130, 87, 229, 0.5), rgba(4, 211, 97, 0.2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.glow-purple {
+    box-shadow: 0 0 40px rgba(130, 87, 229, 0.15), 0 0 80px rgba(130, 87, 229, 0.05);
+}
+
+.glow-green {
+    box-shadow: 0 0 40px rgba(4, 211, 97, 0.1), 0 0 80px rgba(4, 211, 97, 0.03);
+}
+
+/* ─── Gradient Blobs ─── */
+.blob-purple {
+    background: radial-gradient(circle, rgba(130, 87, 229, 0.2) 0%, transparent 70%);
+}
+
+.blob-orange {
+    background: radial-gradient(circle, rgba(244, 143, 86, 0.15) 0%, transparent 70%);
+}
+
+.blob-green {
+    background: radial-gradient(circle, rgba(4, 211, 97, 0.1) 0%, transparent 70%);
+}
+
+select.glass-input option {
+    background: #1a1a2e;
+    color: #e1e1e6;
+}
+
+input[type="datetime-local"].glass-input,
+input[type="date"].glass-input,
+input[type="time"].glass-input {
+    color-scheme: dark;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+input[type="datetime-local"].glass-input::-webkit-calendar-picker-indicator,
+input[type="date"].glass-input::-webkit-calendar-picker-indicator,
+input[type="time"].glass-input::-webkit-calendar-picker-indicator {
+    filter: invert(0.7);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: filter 0.2s;
+}
+
+input[type="datetime-local"].glass-input::-webkit-calendar-picker-indicator:hover,
+input[type="date"].glass-input::-webkit-calendar-picker-indicator:hover,
+input[type="time"].glass-input::-webkit-calendar-picker-indicator:hover {
+    filter: invert(1);
+}
+
+/* React Big Calendar dark theme */
+/* ═══════════════════════════════════════════
+   AGENDAFLOW CALENDAR — DARK THEME
+   ═══════════════════════════════════════════ */
+
+.agendaflow-calendar {
+    font-family: var(--font-inter), 'Inter', system-ui, sans-serif !important;
+    height: 100% !important;
+}
+
+.agendaflow-calendar .rbc-calendar {
+    font-family: inherit !important;
+}
+
+/* ─── Month / Week / Day View ─── */
+.agendaflow-calendar .rbc-month-view,
+.agendaflow-calendar .rbc-time-view,
+.agendaflow-calendar .rbc-day-view {
+    background: rgba(255,255,255,0.02) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2) !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+.agendaflow-calendar .rbc-month-view {
+    min-height: 480px !important;
+}
+
+.agendaflow-calendar .rbc-month-row,
+.agendaflow-calendar .rbc-row-bg {
+    border-color: rgba(255,255,255,0.06) !important;
+}
+
+.agendaflow-calendar .rbc-row-segment {
+    padding: 1px !important;
+}
+
+/* ─── Day Backgrounds ─── */
+.agendaflow-calendar .rbc-day-bg {
+    border-color: rgba(255,255,255,0.06) !important;
+    cursor: pointer !important;
+    transition: background 0.25s ease !important;
+}
+
+.agendaflow-calendar .rbc-day-bg:hover {
+    background: rgba(130, 87, 229, 0.06) !important;
+}
+
+.agendaflow-calendar .rbc-today {
+    background: rgba(130, 87, 229, 0.1) !important;
+    box-shadow: inset 0 0 0 1px rgba(130, 87, 229, 0.2) !important;
+}
+
+.agendaflow-calendar .rbc-day-bg.rbc-today:hover {
+    background: rgba(130, 87, 229, 0.15) !important;
+}
+
+.agendaflow-calendar .rbc-off-range-bg {
+    background: rgba(0,0,0,0.3) !important;
+}
+
+/* ─── Header ─── */
+.agendaflow-calendar .rbc-header {
+    background: rgba(255,255,255,0.03) !important;
+    color: #c4c4d4 !important;
+    border-color: rgba(255,255,255,0.06) !important;
+    padding: 10px 8px !important;
+    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+}
+
+.agendaflow-calendar .rbc-header + .rbc-header {
+    border-left: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+.agendaflow-calendar .rbc-header.rbc-today {
+    color: #996dff !important;
+    background: rgba(130, 87, 229, 0.15) !important;
+}
+
+/* ─── Date Cells ─── */
+.agendaflow-calendar .rbc-date-cell {
+    color: #a0a0b8 !important;
+    cursor: pointer !important;
+    padding: 4px 6px !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+}
+
+.agendaflow-calendar .rbc-date-cell.rbc-now {
+    color: #fff !important;
+    font-weight: 700 !important;
+}
+
+.agendaflow-calendar .rbc-date-cell.rbc-now > a {
+    background: #8257e5 !important;
+    border-radius: 50% !important;
+    width: 26px !important;
+    height: 26px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(130, 87, 229, 0.4) !important;
+}
+
+.agendaflow-calendar .rbc-date-cell > a {
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.agendaflow-calendar .rbc-date-cell > a:hover {
+    color: #996dff !important;
+}
+
+/* ─── Events ─── */
+.agendaflow-calendar .rbc-event {
+    border: none !important;
+    border-radius: 4px !important;
+    opacity: 1 !important;
+    color: white !important;
+    padding: 2px 6px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+    letter-spacing: 0.2px !important;
+    backdrop-filter: blur(2px) !important;
+}
+
+.agendaflow-calendar .rbc-event:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35) !important;
+    filter: brightness(1.2) !important;
+    z-index: 10 !important;
+}
+
+.agendaflow-calendar .rbc-event.rbc-selected {
+    outline: 2px solid rgba(255,255,255,0.5) !important;
+    outline-offset: 1px !important;
+}
+
+/* ─── Event Variants ─── */
+.agendaflow-calendar .calendar-bloqueio {
+    background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 3px,
+        rgba(255,255,255,0.06) 3px,
+        rgba(255,255,255,0.06) 6px
+    ) !important;
+}
+
+.agendaflow-calendar .calendar-bloqueio:hover {
+    filter: brightness(1.3) !important;
+}
+
+.agendaflow-calendar .calendar-agendado,
+.agendaflow-calendar .calendar-confirmado {
+    border-left: 3px solid rgba(255,255,255,0.4) !important;
+}
+
+.agendaflow-calendar .calendar-pendente {
+    border-left: 3px solid #fbbf24 !important;
+}
+
+.agendaflow-calendar .calendar-cancelado {
+    border-left: 3px solid #f87171 !important;
+    text-decoration: line-through !important;
+    opacity: 0.7 !important;
+}
+
+.agendaflow-calendar .calendar-concluído {
+    border-left: 3px solid #9ca3af !important;
+}
+
+/* ─── Show More ─── */
+.agendaflow-calendar .rbc-show-more {
+    color: #996dff !important;
+    font-weight: 600 !important;
+    font-size: 10px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    padding: 1px 4px !important;
+    border-radius: 4px !important;
+    display: inline-block !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+}
+
+/* ─── Clickable cursors ─── */
+.agendaflow-calendar .rbc-day-bg,
+.agendaflow-calendar .rbc-date-cell,
+.agendaflow-calendar .rbc-header,
+.agendaflow-calendar .rbc-show-more,
+.agendaflow-calendar .rbc-time-slot,
+.agendaflow-calendar .rbc-event,
+.agendaflow-calendar .rbc-toolbar button { cursor: pointer !important; }
+
+.agendaflow-calendar .rbc-toolbar button:disabled { cursor: not-allowed !important; opacity: 0.4; }
+
+.agendaflow-calendar .rbc-header:hover,
+.agendaflow-calendar .rbc-date-cell:not(.rbc-now) a:hover,
+.agendaflow-calendar .rbc-time-slot:hover { background: rgba(130, 87, 229, 0.04) !important; }
+
+.agendaflow-calendar .rbc-show-more:hover {
+    background: rgba(153, 109, 255, 0.2) !important;
+    color: #b794ff !important;
+}
+
+/* ─── Time View ─── */
+.agendaflow-calendar .rbc-time-header-gutter {
+    background: rgba(255,255,255,0.02) !important;
+    border-color: rgba(255,255,255,0.06) !important;
+}
+
+.agendaflow-calendar .rbc-time-header-content {
+    border-color: rgba(255,255,255,0.06) !important;
+}
+
+.agendaflow-calendar .rbc-timeslot-group {
+    border-color: rgba(255,255,255,0.04) !important;
+    min-height: 40px !important;
+}
+
+.agendaflow-calendar .rbc-time-content {
+    border-color: rgba(255,255,255,0.06) !important;
+    border-top: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+.agendaflow-calendar .rbc-time-gutter .rbc-timeslot-group {
+    border-color: rgba(255,255,255,0.04) !important;
+}
+
+.agendaflow-calendar .rbc-label {
+    color: #7a7a8e !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    padding: 0 8px !important;
+}
+
+.agendaflow-calendar .rbc-time-gutter.rbc-time-column {
+    background: rgba(255,255,255,0.01) !important;
+}
+
+.agendaflow-calendar .rbc-time-view .rbc-allday-cell {
+    border-color: rgba(255,255,255,0.06) !important;
+}
+
+.agendaflow-calendar .rbc-time-content > * + * > * {
+    border-color: rgba(255,255,255,0.04) !important;
+}
+
+/* ─── Current Time Indicator ─── */
+.agendaflow-calendar .rbc-current-time-indicator {
+    background: linear-gradient(90deg, #996dff, #8257e5) !important;
+    height: 2px !important;
+    box-shadow: 0 0 8px rgba(153, 109, 255, 0.5) !important;
+}
+
+.agendaflow-calendar .rbc-current-time-indicator::before {
+    content: '' !important;
+    position: absolute !important;
+    left: -4px !important;
+    top: -3px !important;
+    width: 8px !important;
+    height: 8px !important;
+    background: #996dff !important;
+    border-radius: 50% !important;
+    box-shadow: 0 0 8px rgba(153, 109, 255, 0.6) !important;
+}
+
+/* ─── Overlay (pop-up de +ver mais) ─── */
+.agendaflow-calendar .rbc-overlay {
+    background: #1e1e32 !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.5) !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    min-width: 200px !important;
+    backdrop-filter: blur(16px) !important;
+}
+
+.agendaflow-calendar .rbc-overlay-header {
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    padding: 10px 14px !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    color: #e1e1e6 !important;
+    background: rgba(255,255,255,0.03) !important;
+}
+
+.agendaflow-calendar .rbc-overlay > * + * {
+    border-top: 1px solid rgba(255,255,255,0.04) !important;
+}
+
+/* ─── Agenda View ─── */
+.agendaflow-calendar .rbc-agenda-view {
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background: rgba(255,255,255,0.02) !important;
+}
+
+.agendaflow-calendar .rbc-agenda-view table {
+    border-color: rgba(255,255,255,0.06) !important;
+    border-collapse: collapse !important;
+}
+
+.agendaflow-calendar .rbc-agenda-view table thead {
+    background: rgba(255,255,255,0.04) !important;
+}
+
+.agendaflow-calendar .rbc-agenda-view table thead th {
+    padding: 10px 12px !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    color: #a0a0b8 !important;
+    font-weight: 600 !important;
+    border-color: rgba(255,255,255,0.06) !important;
+}
+
+.agendaflow-calendar .rbc-agenda-view table tbody td {
+    padding: 8px 12px !important;
+    font-size: 0.85rem !important;
+    color: #d1d1e0 !important;
+    border-color: rgba(255,255,255,0.04) !important;
+}
+
+.agendaflow-calendar .rbc-agenda-view table tbody tr {
+    transition: background 0.2s ease !important;
+}
+
+.agendaflow-calendar .rbc-agenda-view table tbody tr:hover {
+    background: rgba(130, 87, 229, 0.08) !important;
+}
+
+.agendaflow-calendar .rbc-agenda-empty {
+    padding: 24px !important;
+    text-align: center !important;
+    color: #7a7a8e !important;
+    font-size: 0.9rem !important;
+}
+
+/* ─── Row for month-view ─── */
+.agendaflow-calendar .rbc-row {
+    border-color: rgba(255,255,255,0.06) !important;
+}
+
+.agendaflow-calendar .rbc-row-content {
+    z-index: 1 !important;
+}
+
+.agendaflow-calendar .rbc-row-segment .rbc-event {
+    margin-bottom: 1px !important;
+}
+
+/* ─── Scrollbar in time views ─── */
+.agendaflow-calendar .rbc-time-content::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.agendaflow-calendar .rbc-time-content::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.02) !important;
+}
+
+.agendaflow-calendar .rbc-time-content::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1) !important;
+    border-radius: 3px !important;
+}
+
+.agendaflow-calendar .rbc-time-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.2) !important;
+}
+
+/* ─── Selected slot ─── */
+.agendaflow-calendar .rbc-slot-selecting .rbc-day-bg.rbc-today {
+    background: rgba(130, 87, 229, 0.15) !important;
+}
+
+/* ─── Background highlight on hover (time views) ─── */
+.agendaflow-calendar .rbc-time-view .rbc-row-resource {
+    border-color: rgba(255,255,255,0.06) !important;
+}
+
+.agendaflow-calendar .rbc-time-column .rbc-timeslot-group {
+    border-color: rgba(255,255,255,0.04) !important;
+}
+
+.agendaflow-calendar .rbc-time-column .rbc-time-slot {
+    transition: background 0.15s ease !important;
+}
+
+.agendaflow-calendar .rbc-time-column .rbc-time-slot:hover {
+    background: rgba(130, 87, 229, 0.03) !important;
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 640px) {
+    .agendaflow-calendar .rbc-event {
+        font-size: 9px !important;
+        padding: 1px 3px !important;
+    }
+    .agendaflow-calendar .rbc-date-cell {
+        font-size: 0.7rem !important;
+        padding: 2px 4px !important;
+    }
+    .agendaflow-calendar .rbc-header {
+        font-size: 0.65rem !important;
+        padding: 6px 4px !important;
+        letter-spacing: 0.5px !important;
+    }
+    .agendaflow-calendar .rbc-month-view {
+        min-height: 320px !important;
+    }
+    .agendaflow-calendar .rbc-overlay {
+        min-width: 160px !important;
+    }
+    .agendaflow-calendar .rbc-timeslot-group {
+        min-height: 32px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .agendaflow-calendar .rbc-event {
+        font-size: 7px !important;
+        padding: 0 2px !important;
+        border-left-width: 2px !important;
+    }
+    .agendaflow-calendar .rbc-date-cell {
+        font-size: 0.6rem !important;
+    }
+    .agendaflow-calendar .rbc-header {
+        font-size: 0.5rem !important;
+        padding: 4px 2px !important;
+    }
+}
+
+/* Z-index utilities (Tailwind doesn't include z-5 by default) */
+.-z-5 { z-index: -5; }
+
+/* ─── Custom Cursor ─── */
+.custom-cursor-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: #996dff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: width 0.15s, height 0.15s, background 0.15s;
+    box-shadow: 0 0 12px rgba(153, 109, 255, 0.6);
+}
+
+.custom-cursor-ring {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid rgba(153, 109, 255, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
+    box-shadow: 0 0 20px rgba(153, 109, 255, 0.15);
+}
+
+.custom-cursor-ring.scale-up {
+    width: 56px;
+    height: 56px;
+    border-color: rgba(153, 109, 255, 0.8);
+    background: rgba(153, 109, 255, 0.08);
+    box-shadow: 0 0 30px rgba(153, 109, 255, 0.25);
+}
+
+/* ─── Dot Field ─── */
+.bg-dot-field {
+    background-image: radial-gradient(rgba(130,87,229,0.25) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+    animation: marquee 40s linear infinite;
+}
+.animate-marquee:hover {
+    animation-play-state: paused;
+}
+
+/* ─── Background Patterns ─── */
+.bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+}
+
+.bg-grid {
+    background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+.bg-grid-dense {
+    background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* ─── Light mode grid ─── */
+.bg-grid-light {
+    background-image:
+        linear-gradient(rgba(130,87,229,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(130,87,229,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+.bg-grid-light-dense {
+    background-image:
+        linear-gradient(rgba(130,87,229,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(130,87,229,0.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* ─── Animated Grid ─── */
+@keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
+}
+
+.bg-grid-animated {
+    background-image:
+        linear-gradient(rgba(130,87,229,0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(130,87,229,0.2) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridMove 8s linear infinite;
+}
+
+.bg-grid-animated-reverse {
+    background-image:
+        linear-gradient(rgba(130,87,229,0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(130,87,229,0.12) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 12s linear infinite reverse;
+}
+
+@keyframes gridPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+.bg-grid-pulse {
+    background-image:
+        linear-gradient(rgba(130,87,229,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(130,87,229,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 10s linear infinite, gridPulse 4s ease-in-out infinite;
+}
+
+/* ─── Background Images (Unsplash) ─── */
+.bg-unsplash-hero {
+    background-image: url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.bg-unsplash-features {
+    background-image: url('https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.bg-unsplash-cta {
+    background-image: url('https://images.unsplash.com/photo-1614854262340-76cb51c9a2ba?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.bg-unsplash-footer {
+    background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* iOS Safari: background-attachment:fixed quebra — troca para scroll em mobile */
+@media (max-width: 768px) {
+    .bg-unsplash-hero,
+    .bg-unsplash-features,
+    .bg-unsplash-cta,
+    .bg-unsplash-footer {
+        background-attachment: scroll;
+    }
+}
+
+/* Calendar: fontes menores em mobile */
+@media (max-width: 640px) {
+    .rbc-event { font-size: 10px !important; padding: 1px 4px !important; }
+    .rbc-date-cell { font-size: 0.75rem !important; }
+    .rbc-header { font-size: 0.7rem !important; padding: 6px !important; }
+    .rbc-toolbar-label { font-size: 0.9rem !important; }
+}
+
+/* ─── Scroll Progress Bar ─── */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #8257e5, #996dff, #04d361);
+    z-index: 100;
+    transition: width 0.1s;
+}
+
+/* ─── Floating Animation ─── */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-10px) rotate(0.5deg); }
+    66% { transform: translateY(5px) rotate(-0.3deg); }
+}
+.animate-float { animation: float 8s ease-in-out infinite; }
+.animate-float-delayed { animation: float 10s ease-in-out 2s infinite; }
+.animate-float-slow { animation: float 12s ease-in-out 4s infinite; }
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+.animate-twinkle { animation: twinkle 3s ease-in-out infinite; }
+.animate-twinkle-delayed { animation: twinkle 4s ease-in-out 1.5s infinite; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* ─── Animations ─── */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fadeIn 0.3s ease forwards; }
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+.loading-dot { animation: pulse-dot 1.4s ease infinite; }
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.7; }
+}
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* ─── Touch-friendly improvements ─── */
+@media (max-width: 768px) {
+    .touch-target { min-height: 44px; min-width: 44px; }
+    .touch-friendly { padding: 12px 16px; }
+    .responsive-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+/* ─── Smooth scrollbar ─── */
+@media (hover: hover) {
+    .smooth-scroll { scroll-behavior: smooth; }
+}
+
+@media (max-width: 640px) {
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}

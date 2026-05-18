@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+// Modelo de Usuário para Login (Sistema)
+model User {
+  id                 Int           @id @default(autoincrement())
+  nome               String
+  email              String        @unique
+  senha              String
+  role               String        @default("admin")
+  composioId         String?
+  googleRefreshToken String?
+  googleEmail        String?
+  agendamentos       Appointment[]
+  createdAt          DateTime      @default(now())
+}
+
+// Modelo de Clientes (Pessoas que agendam)
+model Client {
+  id                 Int           @id @default(autoincrement())
+  nome               String
+  telefone           String
+  email              String        @unique
+  senha              String?
+  composioId         String?
+  googleRefreshToken String?
+  googleEmail        String?
+  emailVerificado    Boolean       @default(false)
+  confirmacaoToken   String?
+  agendamentos       Appointment[]
+  createdAt          DateTime      @default(now())
+}
+
+// Modelo de Espaços (Salas, Consultórios, etc)
+model Space {
+  id           Int           @id @default(autoincrement())
+  nome         String
+  capacidade   Int?
+  disponivel   Boolean       @default(true)
+  agendamentos Appointment[]
+  bloqueios    Bloqueio[]
+}
+
+// Modelo de Agendamentos (Onde tudo se une)
+model Appointment {
+  id         Int        @id @default(autoincrement())
+  dataInicio DateTime
+  dataFim    DateTime
+  status     String     @default("Agendado") // Agendado|Confirmado|Pendente|Cancelado|Concluído
+  googleId   String?    // ID do evento no Google Calendar
+  notas      String?
+  lembretes  Lembrete[]
+
+  client     Client     @relation(fields: [clientId], references: [id])
+  clientId   Int
+  space      Space      @relation(fields: [spaceId], references: [id])
+  spaceId    Int
+  user       User?      @relation(fields: [userId], references: [id])
+  userId     Int?       // Usuário que criou o agendamento
+
+  createdAt  DateTime   @default(now())
+}
+
+// Tabela de bloqueios de horários (req. prof. #4)
+model Bloqueio {
+  id         Int      @id @default(autoincrement())
+  dataInicio DateTime
+  dataFim    DateTime
+  motivo     String?
+  space      Space    @relation(fields: [spaceId], references: [id])
+  spaceId    Int
+}
+
+// Tabela de lembretes (req. prof. #2)
+model Lembrete {
+  id            Int         @id @default(autoincrement())
+  tipo          String      @default("email") // email | notificacao
+  enviadoEm     DateTime?
+  status        String      @default("pendente") // pendente | enviado | falhou
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  appointmentId Int
+}
+
+// Tabela de configurações da agenda (req. prof. #7)
+model ConfigAgenda {
+    id                  Int    @id @default(autoincrement())
+    horaInicio          String @default("08:00")
+    horaFim             String @default("18:00")
+    duracaoAtendimento  Int    @default(50) // duração de cada atendimento em minutos (ex: 50)
+    intervaloEntreAtend Int    @default(10) // intervalo entre atendimentos em minutos (ex: 10)
+    diasFuncionamento   String @default("1,2,3,4,5") // 0=dom, 6=sab
+}
