@@ -38,14 +38,16 @@ exports.criar = async (req, res) => {
 
         const configAgenda = await prisma.configAgenda.findFirst();
         if (configAgenda) {
-            const diaSemana = inicioStr.getDay();
+            const BR_TZ = 'America/Bahia';
+            const inicioBR = new Date(inicioStr.toLocaleString('en-US', { timeZone: BR_TZ }));
+            const diaSemana = inicioBR.getDay();
             const diasFunc = configAgenda.diasFuncionamento.split(',').map(Number);
             if (!diasFunc.includes(diaSemana)) {
                 const diasNomes = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
                 return res.status(400).json({ erro: `O espaço não funciona aos ${diasNomes[diaSemana]}.` });
             }
 
-            const horaSlot = inicioStr.getHours() * 60 + inicioStr.getMinutes();
+            const horaSlot = inicioBR.getHours() * 60 + inicioBR.getMinutes();
             const [hA, mA] = configAgenda.horaInicio.split(':').map(Number);
             const [hF, mF] = configAgenda.horaFim.split(':').map(Number);
             const abertura = hA * 60 + mA;
@@ -344,14 +346,16 @@ exports.criarCliente = async (req, res) => {
         const config = await prisma.configAgenda.findFirst();
         if (!config) return res.status(400).json({ erro: 'A agenda ainda não foi configurada pelo administrador.' });
 
-        const diaSemana = inicioStr.getDay();
+        const BR_TZ = 'America/Bahia';
+        const inicioBR = new Date(inicioStr.toLocaleString('en-US', { timeZone: BR_TZ }));
+        const diaSemana = inicioBR.getDay();
         const diasFuncionamento = config.diasFuncionamento.split(',').map(Number);
         if (!diasFuncionamento.includes(diaSemana)) {
             const diasNomes = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
             return res.status(400).json({ erro: `Infelizmente não funcionamos aos ${diasNomes[diaSemana]}. Por favor, escolha outro dia.` });
         }
 
-        const horaSlot = inicioStr.getHours() * 60 + inicioStr.getMinutes();
+        const horaSlot = inicioBR.getHours() * 60 + inicioBR.getMinutes();
         const [hAbertura, mAbertura] = config.horaInicio.split(':').map(Number);
         const [hFechamento, mFechamento] = config.horaFim.split(':').map(Number);
         const aberturaMin = hAbertura * 60 + mAbertura;

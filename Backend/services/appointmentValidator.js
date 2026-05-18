@@ -20,28 +20,32 @@ async function validarAgendamento({ spaceId, dataInicio, dataFim }) {
     const config = await prisma.configAgenda.findFirst();
     if (!config) return { ok: false, erro: 'A agenda não foi configurada pelo administrador.' };
 
-    // Dia da semana
+    // Dia da semana — converter para Bahia/UTC-3 (Railway roda em UTC)
+    const BR_TZ = 'America/Bahia';
+    const inicioBR = new Date(inicio.toLocaleString('en-US', { timeZone: BR_TZ }));
     const diasNomes = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
-    const diaSemana = inicio.getDay();
+    const diaSemana = inicioBR.getDay();
     const diasFunc = config.diasFuncionamento.split(',').map(Number);
     if (!diasFunc.includes(diaSemana)) {
         // Próximo dia disponível
         let proxData = null;
         for (let i = 1; i <= 7; i++) {
             const cand = new Date(inicio.getTime() + i * 86400000);
-            if (diasFunc.includes(cand.getDay())) { proxData = cand; break; }
+            const candBR = new Date(cand.toLocaleString('en-US', { timeZone: BR_TZ }));
+            if (diasFunc.includes(candBR.getDay())) { proxData = candBR; break; }
         }
         const sugestao = proxData ? ` Próximo dia disponível: ${diasNomes[proxData.getDay()]} (${proxData.toLocaleDateString('pt-BR')}).` : '';
         return { ok: false, erro: `Não atendemos aos ${diasNomes[diaSemana]}.${sugestao}` };
     }
 
-    // Horário de funcionamento
+    // Horário de funcionamento — comparar em horário de Bahia
     const [hA, mA] = config.horaInicio.split(':').map(Number);
     const [hF, mF] = config.horaFim.split(':').map(Number);
     const aberturaMin = hA * 60 + mA;
     const fechamentoMin = hF * 60 + mF;
-    const inicioMin = inicio.getHours() * 60 + inicio.getMinutes();
-    const fimMin = fim.getHours() * 60 + fim.getMinutes();
+    const fimBR = new Date(fim.toLocaleString('en-US', { timeZone: BR_TZ }));
+    const inicioMin = inicioBR.getHours() * 60 + inicioBR.getMinutes();
+    const fimMin = fimBR.getHours() * 60 + fimBR.getMinutes();
     if (inicioMin < aberturaMin || fimMin > fechamentoMin) {
         return { ok: false, erro: `Horário de funcionamento: ${config.horaInicio} às ${config.horaFim}. Escolha um horário dentro desse período.` };
     }

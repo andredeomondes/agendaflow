@@ -375,12 +375,11 @@ const toolMap = {
         const { data } = args;
         if (!data) return { slots: [], mensagem: 'Informe a data no formato YYYY-MM-DD.' };
 
-        // Brasil = UTC-3 (sem horário de verão desde 2019)
-        // Cria datas explicitamente em UTC para representar horário de Brasília
+        // Bahia = UTC-3 (sem horário de verão)
         const [ano, mes, dia] = data.split('-').map(Number);
         const brToUTC = (h, m) => new Date(Date.UTC(ano, mes - 1, dia, h + 3, m, 0));
 
-        const dataDate = brToUTC(0, 0); // meia-noite Brasília
+        const dataDate = brToUTC(0, 0); // meia-noite Bahia
         const agora = new Date();
         if (dataDate < new Date(Date.UTC(agora.getUTCFullYear(), agora.getUTCMonth(), agora.getUTCDate(), 3, 0, 0))) {
             return { slots: [], mensagem: 'Esta data ja passou. Informe uma data futura.' };
@@ -389,7 +388,7 @@ const toolMap = {
         const config = await prisma.configAgenda.findFirst();
         if (!config) return { slots: [], mensagem: 'Agenda nao configurada pelo administrador.' };
 
-        // Dia da semana em Brasília
+        // Dia da semana em Bahia (UTC-3)
         const diaSemana = new Date(data + 'T12:00:00-03:00').getDay();
         const diasFunc = config.diasFuncionamento.split(',').map(Number);
         const diasNomes = ['domingo', 'segunda-feira', 'terca-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sabado'];
@@ -447,7 +446,7 @@ const toolMap = {
 
         if (available.length === 0) return { slots: [], mensagem: 'Nenhum horario disponivel nesta data. Tente outra data.' };
 
-        const BR_TZ = 'America/Sao_Paulo';
+        const BR_TZ = 'America/Bahia';
         return {
             slots: available.map(s => ({
                 dataInicio: s.dataInicio.toISOString(),

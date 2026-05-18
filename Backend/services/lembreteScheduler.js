@@ -49,7 +49,7 @@ async function buscarAgendamentos(minInicio, minFim) {
 }
 
 function startLembreteScheduler() {
-    // 1 dia antes — roda diariamente às 9h Brasília (12h UTC)
+    // 1 dia antes — roda diariamente às 9h Bahia (12h UTC)
     cron.schedule('0 12 * * *', async () => {
         console.log('[Lembrete] Verificando agendamentos de amanhã...');
         try {

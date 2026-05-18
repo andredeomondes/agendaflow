@@ -34,7 +34,7 @@ async function enviar({ to, subject, html }) {
   }
 }
 
-const BR_TZ = 'America/Sao_Paulo';
+const BR_TZ = 'America/Bahia';
 
 function formatDate(date) {
   return new Date(date).toLocaleDateString('pt-BR', {

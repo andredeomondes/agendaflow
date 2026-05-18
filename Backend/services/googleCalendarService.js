@@ -58,8 +58,8 @@ async function criarEvento({ userId, titulo, descricao, dataInicio, dataFim }) {
       requestBody: {
         summary: titulo,
         description: descricao,
-        start: { dateTime: dataInicio.toISOString(), timeZone: 'America/Sao_Paulo' },
-        end: { dateTime: dataFim.toISOString(), timeZone: 'America/Sao_Paulo' }
+        start: { dateTime: dataInicio.toISOString(), timeZone: 'America/Bahia' },
+        end: { dateTime: dataFim.toISOString(), timeZone: 'America/Bahia' }
       }
     });
     return response.data.id || null;
@@ -93,8 +93,8 @@ async function criarEventoCliente({ clientId, titulo, descricao, dataInicio, dat
       requestBody: {
         summary: titulo,
         description: descricao,
-        start: { dateTime: dataInicio.toISOString(), timeZone: 'America/Sao_Paulo' },
-        end: { dateTime: dataFim.toISOString(), timeZone: 'America/Sao_Paulo' }
+        start: { dateTime: dataInicio.toISOString(), timeZone: 'America/Bahia' },
+        end: { dateTime: dataFim.toISOString(), timeZone: 'America/Bahia' }
       }
     });
     return response.data.id || null;
